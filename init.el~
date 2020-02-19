@@ -29,19 +29,27 @@
   (setq mouse-sel-mode t)
 )
 
-; Require org-gcal
-(require 'org-gcal)
-(setq org-gcal-client-id "454851124200-8bfphu62p58ulajhmbjoihddabjnm6gi.apps.googleusercontent.com"
-      org-gcal-client-secret "yK_p4IuF37e2u1BonXkzq5dY"
-      org-gcal-file-alist '(("57ev72kpvi65gt5nl0ool794jc@group.calendar.google.com" .  "~/Dropbox/org/calendar/personalEvents.org")
-			    ("tvv34uratptn4vq7dsfrnuinfs@group.calendar.google.com" .  "~/Dropbox/org/calendar/campusJobs.org")
-			    ("jci40ahfs1mpu6vt20dsr9ie7k@group.calendar.google.com" .  "~/Dropbox/org/calendar/deadlines.org")
-			    ("f2fkaifin1sohrum7mtmtqcrs4@group.calendar.google.com" .  "~/Dropbox/org/calendar/scuAssignments.org")
-			    ("def3amttatrluc5th821sn5sp8@group.calendar.google.com" .  "~/Dropbox/org/calendar/scuEAndM.org")
-                            ))
+; Spell and grammer checker
+; (require 'langtool)
+; (setq langtool-language-tool-jar "~/.emacs.d/langtool/languagetool-commandline.jar"
+;      langtool-disabled-rules '("WHITESPACE_RULE"
+;                                "EN_UNPAIRED_BRACKETS"
+;                                "COMMA_PARENTHESIS_WHITESPACE"
+;                                "EN_QUOTES"))
 
-; Sync org and gcal everytime agenda is opened
-; (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+
+; Clipboard copy and pasting
+;  (defun copy-from-osx ()
+;    (shell-command-to-string "pbpaste"))
+;  
+;  (defun paste-to-osx (text &optional push)
+;    (let ((process-connection-type nil))
+;      (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+;        (process-send-string proc text)
+;        (process-send-eof proc))))
+;  
+;  (setq interprogram-cut-function 'paste-to-osx)
+;  (setq interprogram-paste-function 'copy-from-osx)
 
 ;Org mode
 (require 'org)
@@ -94,49 +102,49 @@
  '(icomplete-mode t)
  '(inhibit-startup-screen t)
  '(initial-buffer-choice nil)
- '(org-agenda-files
-   (quote
-    ("/Users/yuyangchee/Dropbox/org" "/Users/yuyangchee/Dropbox/org/calendar")))
- '(org-agenda-show-current-time-in-grid t)
+ '(org-agenda-files (quote ("/Users/Yang/org")))
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-time-grid
    (quote
-    ((daily weekly today)
+    (nil
      (800 1000 1200 1400 1600 1800 2000)
      "......" "----------------")))
- '(org-agenda-timegrid-use-ampm t)
- '(org-agenda-use-time-grid t)
+ '(org-agenda-use-time-grid nil)
  '(org-archive-default-command (quote org-archive-to-archive-sibling))
  '(org-archive-location "::* Archived Tasks")
  '(org-babel-load-languages (quote ((emacs-lisp . t) (C . t))))
  '(org-capture-templates
    (quote
-    (("d" "Start day" entry
-      (file+olp+datetree "~/Dropbox/org/personal.org" "Personal" "Daily")
+    (("d" "Daily")
+     ("ds" "Start day" entry
+      (file+olp+datetree "~/org/personal.org" "Personal" "Daily")
       "* Day planning [/]
-Morning
+Important
 - [ ] %^{Task 1}
 - [ ] %^{Task 2}
 - [ ] %^{Task 3}
 
-Afternoon
+Not so important
+- [ ] %^{Task 3}
 - [ ] %^{Task 4}
-
-Night
 - [ ] %^{Task 5}
-- [ ] %^{Task 6}
-- [ ] %^{Task 7}
+
+Starting new habit
+- [ ] Do art/ read art
+- [ ] Nofap
+- [ ] Fill streak in habits section
 
 Daily
+- [ ] Check org-agenda and org-todolist
 - [ ] Book
 - [ ] Pocket
 - [ ] Journal/ Reflect
 
 :LOGBOOK:
 - Added: %T
-:END:" :prepend t)
+:END:")
      ("i" "Ideas" entry
-      (file+headline "~/Dropbox/org/personal.org" "Ideas")
+      (file+headline "~/org/personal.org" "Ideas")
       "* %^{Product/ business idea}
 - Description:
 %^{Description}
@@ -144,15 +152,15 @@ Daily
 :Logbook:
 - Added: %T
 :END:")
-     ("rd" "Reflect daily" entry
-      (file+olp+datetree "~/Dropbox/org/personal.org" "Personal" "Daily")
-      "* Daily writing ::
+     ("dj" "Journal" entry
+      (file+olp+datetree "~/org/personal.org" "Personal" "Daily")
+      "* Journal- Day
 %^{Story}
 :LOGBOOK:
 - Added %T
 :END:")
      ("rm" "Reflect Monthly" entry
-      (file+olp+datetree "~/Dropbox/org/personal.org" "Personal" "Daily")
+      (file+olp+datetree "~/org/personal.org" "Personal" "Daily")
       "* Monthly reflection
 ** What got done?
 %^{Story}
@@ -167,7 +175,7 @@ Daily
 - Added %T
 :END\"")
      ("rw" "Reflect weekly" entry
-      (file+olp+datetree "~/Dropbox/org/personal.org" "Personal" "Daily")
+      (file+olp+datetree "~/org/personal.org" "Personal" "Daily")
       "* Weekly reflection
 ** What got done?
 %^{Story}
@@ -220,12 +228,12 @@ Daily
 		  ("convert -density %D -trim -antialias %f -quality 100 %O")))))
  '(package-selected-packages
    (quote
-    (org-gcal markdown-mode magit exec-path-from-shell px ac-capf latex-preview-pane auctex langtool fzf ox-twbs flucui-themes org ## orgalist org-edna)))
+    (markdown-mode magit exec-path-from-shell px ac-capf latex-preview-pane auctex langtool fzf ox-twbs flucui-themes org ## orgalist org-edna)))
  '(user-full-name "Yu Yang Chee"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#2d3743" :foreground "#e1e1e0" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Meslo LG L DZ for Powerline"))))
+ '(default ((t (:inherit nil :stipple nil :background "#2d3743" :foreground "#e1e1e0" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Meslo LG M for Powerline"))))
  '(org-hide ((t (:foreground "brightwhite")))))
