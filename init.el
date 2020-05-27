@@ -38,7 +38,10 @@
 			    ("jci40ahfs1mpu6vt20dsr9ie7k@group.calendar.google.com" .  "~/Dropbox/org/calendar/deadlines.org")
 			    ("f2fkaifin1sohrum7mtmtqcrs4@group.calendar.google.com" .  "~/Dropbox/org/calendar/scuAssignments.org")
 			    ("def3amttatrluc5th821sn5sp8@group.calendar.google.com" .  "~/Dropbox/org/calendar/scuEAndM.org")
-                            ))
+			    ("44bftb63bkgs01riiu70hf4s6s@group.calendar.google.com" .  "~/Dropbox/org/calendar/scuTimetable.org")
+			    ("jci40ahfs1mpu6vt20dsr9ie7k@group.calendar.google.com" .  "~/Dropbox/org/calendar/Deadlines.org")
+			    ("34h40480rtlvq4pucb700lei04@group.calendar.google.com" .  "~/Dropbox/org/calendar/importantDays.org")			    
+			    ))
 
 ; Sync org and gcal everytime agenda is opened
 ; (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
@@ -60,9 +63,17 @@
 ; Org-agenda folder setting
 (setq org-agenda-files '("~/org"))
 
-;Inserting today's date with the command 'M-x insert-current-date'
-  (defun insert-current-date () (interactive)
+;Inserting today's date with the command 'M-x insert-today-date'
+(defun insert-today-date () (interactive)
 	 (insert (shell-command-to-string "echo -n $(date +%d-%m-%Y)")))
+
+;Insert SCU folder path with the command "M-x path-home"
+(defun path-scu () (interactive)
+	 (insert (shell-command-to-string "echo ../../Google\ Drive/SCU/Spring\ 20/ ")))
+
+;Insert home folder  path with the command "M-x path-home"
+(defun path-home () (interactive)
+	 (insert (shell-command-to-string "echo ../../ ")))
 
 ; Text wrap
 (global-visual-line-mode t)
@@ -80,6 +91,9 @@
 
 ; Latex link in emacs
 (exec-path-from-shell-initialize)
+
+; "Hey that file change on disk; I'll reload"
+(global-auto-revert-mode 1)
 
 ; Set automatically when installed.
 (custom-set-variables
@@ -220,7 +234,7 @@ Daily
 		  ("convert -density %D -trim -antialias %f -quality 100 %O")))))
  '(package-selected-packages
    (quote
-    (org-gcal markdown-mode magit exec-path-from-shell px ac-capf latex-preview-pane auctex langtool fzf ox-twbs flucui-themes org ## orgalist org-edna)))
+    (org-gcal org-pdftools markdown-mode magit exec-path-from-shell px ac-capf latex-preview-pane auctex langtool fzf ox-twbs flucui-themes org ## orgalist org-edna)))
  '(user-full-name "Yu Yang Chee"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
